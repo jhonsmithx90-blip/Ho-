@@ -1919,38 +1919,6 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); }
         }
         
-        /* NEW: Floating Web Series Icon */
-        #webseries-fab {
-            position: fixed;
-            bottom: 225px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #9c27b0;
-            color: white;
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            z-index: 999;
-            animation: webseries-pulse 2s infinite;
-            transition: transform 0.3s;
-        }
-        
-        #webseries-fab:hover {
-            transform: scale(1.1);
-            animation-play-state: paused;
-        }
-        
-        @keyframes webseries-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(156, 39, 176, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(156, 39, 176, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(156, 39, 176, 0); }
-        }
-        
         /* NEW: Movies Page Styles */
         #movies-page .category-section {
             margin-bottom: 25px;
@@ -2754,81 +2722,6 @@
             position: relative;
             z-index: 50;
         }
-
-        /* NEW: Web Series Page Styles */
-        #webseries-page .category-section {
-            margin-bottom: 25px;
-        }
-        
-        .webseries-category-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 0 15px;
-        }
-        
-        #webseries-container {
-            padding: 15px;
-        }
-        
-        /* NEW: Episode List Styles */
-        .episode-list {
-            padding: 15px;
-        }
-        
-        .episode-item {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .episode-item:hover {
-            background-color: rgba(255,255,255,0.05);
-            transform: translateY(-2px);
-            border-color: var(--primary-color);
-        }
-        
-        .episode-info {
-            flex: 1;
-        }
-        
-        .episode-number {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .episode-title {
-            font-size: 14px;
-            color: var(--text-color);
-        }
-        
-        .episode-play-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .episode-play-btn:hover {
-            background-color: var(--primary-color-hover);
-            transform: scale(1.1);
-        }
     </style>
 </head>
 <body data-theme="filmzio-dark">
@@ -3194,112 +3087,6 @@
                 </div>
             </div>
 
-            <!-- NEW: WEB SERIES PAGE -->
-            <div id="webseries-page" class="page">
-                <div class="header">
-                    <div class="logo-container">
-                        <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
-                        <div class="logo">Web Series</div>
-                    </div>
-                    <div class="header-controls">
-                        <input type="text" class="search-input" id="webseries-search-input" placeholder="Search web series..." onkeyup="handleWebSeriesSearch(event)">
-                        <div class="user-profile" onclick="navigateTo('profile-page')">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="webseries-container">
-                    <!-- Web Series will be loaded here -->
-                    <div class="state-container" id="webseries-loading-state">
-                        <div class="state-icon">
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </div>
-                        <div class="state-title">Loading Web Series</div>
-                        <div class="state-message">Please wait while we load the web series...</div>
-                    </div>
-                    <div class="state-container" id="webseries-empty-state" style="display: none;">
-                        <div class="state-icon">
-                            <i class="fas fa-tv"></i>
-                        </div>
-                        <div class="state-title">No Web Series Found</div>
-                        <div class="state-message">There are no web series available at the moment.</div>
-                    </div>
-                    <div class="state-container" id="webseries-error-state" style="display: none;">
-                        <div class="state-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="state-title">Failed to Load Web Series</div>
-                        <div class="state-message">There was an error loading web series. Please check your connection and try again.</div>
-                        <button class="retry-btn" onclick="loadWebSeries()">Retry</button>
-                    </div>
-                    <div id="webseries-success-state" style="display: none;">
-                        <!-- Success content will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- NEW: WEB SERIES DETAIL PAGE -->
-            <div id="webseries-detail-page" class="page">
-                <div class="detail-backdrop">
-                    <img id="webseries-detail-backdrop-img" src="" alt="">
-                </div>
-                <div class="detail-content">
-                    <div class="detail-poster">
-                        <img id="webseries-detail-poster-img" src="" alt="">
-                    </div>
-                    <div class="detail-info">
-                        <div class="detail-title" id="webseries-detail-title">Web Series Title</div>
-                        <div class="detail-meta">
-                            <span><i class="fas fa-calendar"></i> <span id="webseries-detail-year">2024</span></span>
-                            <span><i class="fas fa-star"></i> <span id="webseries-detail-rating">8.5/10</span></span>
-                            <span><i class="fas fa-language"></i> <span id="webseries-detail-language">English</span></span>
-                            <span id="webseries-detail-adult-badge" style="color: red; display: none;"><i class="fas fa-18"></i> 18+</span>
-                        </div>
-                        
-                        <!-- Stats Section -->
-                        <div class="detail-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-eye"></i>
-                                <span id="webseries-detail-views">0</span> views
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-list-ol"></i>
-                                <span id="webseries-detail-episodes">0</span> episodes
-                            </div>
-                        </div>
-                        
-                        <!-- Main Action Buttons -->
-                        <div class="detail-actions">
-                            <button class="btn" onclick="playWebSeriesFirstEpisode()">
-                                <i class="fas fa-play"></i> Play First Episode
-                            </button>
-                            <button class="btn btn-secondary" id="webseries-watchlist-btn" onclick="toggleWebSeriesWatchlist()">
-                                <i class="far fa-bookmark"></i> Watchlist
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Main Description Section -->
-                <div class="main-description-section" id="webseries-main-description-section" style="display: none;">
-                    <div class="main-description-container">
-                        <div class="main-description-title">Story / Description</div>
-                        <div class="main-description-content" id="webseries-main-description-content">
-                            Loading description...
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Episodes Section -->
-                <div class="action-links-section" id="webseries-episodes-section" style="display: none;">
-                    <div class="action-links-title">Episodes</div>
-                    <div id="webseries-episodes-container">
-                        <!-- Episodes will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
             <!-- PROFILE PAGE -->
             <div id="profile-page" class="page">
                 <div class="header">
@@ -3653,11 +3440,6 @@
             </div>
         </nav>
 
-        <!-- FLOATING WEB SERIES BUTTON -->
-        <div id="webseries-fab" onclick="navigateTo('webseries-page')">
-            <i class="fas fa-tv"></i>
-        </div>
-
         <!-- FLOATING COMPLAINT BUTTON -->
         <div id="complaint-fab" onclick="openComplaintModal()">
             <i class="fas fa-headset"></i>
@@ -3875,7 +3657,6 @@
         let currentUser = null;
         let appSettings = {};
         let currentContent = null;
-        let currentWebSeries = null;
         let allMovies = [];
         let allSeries = [];
         let allLiveTV = [];
@@ -4424,346 +4205,6 @@
             window.open(telegramSettings.link, '_blank');
         }
 
-        // === NEW: WEB SERIES FUNCTIONS ===
-        async function loadWebSeries() {
-            try {
-                document.getElementById('webseries-loading-state').style.display = 'block';
-                document.getElementById('webseries-empty-state').style.display = 'none';
-                document.getElementById('webseries-error-state').style.display = 'none';
-                document.getElementById('webseries-success-state').style.display = 'none';
-                
-                const snapshot = await db.collection('webseries')
-                    .orderBy('order', 'asc')
-                    .get();
-                
-                if (snapshot.empty) {
-                    document.getElementById('webseries-loading-state').style.display = 'none';
-                    document.getElementById('webseries-empty-state').style.display = 'block';
-                    return;
-                }
-                
-                let html = '<div class="content-grid">';
-                snapshot.forEach(doc => {
-                    const series = { id: doc.id, ...doc.data() };
-                    const isAdult = series.isAdult || (series.category && series.category.includes('18+'));
-                    const isPremiumOnly = series.accessType === 'PREMIUM';
-                    
-                    html += `
-                        <div class="content-card" onclick="showWebSeriesDetail('${doc.id}')">
-                            <img src="${series.poster || 'https://via.placeholder.com/150x225'}" alt="${series.title}">
-                            ${series.language ? `<div class="content-language-badge">${series.language}</div>` : ''}
-                            <div class="content-title">${series.title}</div>
-                            ${isAdult ? '<div style="position:absolute; top:6px; left:6px; background:red; color:white; padding:2px 5px; border-radius:3px; font-size:10px;">18+</div>' : ''}
-                            ${isPremiumOnly && !isPremiumUser ? '<div style="position:absolute; top:6px; left:6px; background:var(--primary-color); color:white; padding:2px 5px; border-radius:3px; font-size:10px;"><i class="fas fa-crown"></i></div>' : ''}
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-                
-                document.getElementById('webseries-loading-state').style.display = 'none';
-                document.getElementById('webseries-success-state').style.display = 'block';
-                document.getElementById('webseries-success-state').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Error loading web series:', error);
-                document.getElementById('webseries-loading-state').style.display = 'none';
-                document.getElementById('webseries-error-state').style.display = 'block';
-            }
-        }
-
-        async function showWebSeriesDetail(seriesId) {
-            try {
-                const doc = await db.collection('webseries').doc(seriesId).get();
-                if (!doc.exists) {
-                    alert('Web series not found!');
-                    return;
-                }
-                
-                const series = { id: doc.id, ...doc.data() };
-                currentWebSeries = series;
-                navigateTo('webseries-detail-page');
-                
-                // Hide floating buttons on detail page
-                document.getElementById('complaint-fab').style.display = 'none';
-                document.getElementById('telegram-fab').style.display = 'none';
-                document.getElementById('webseries-fab').style.display = 'none';
-                
-                updateWebSeriesDetailUI(series);
-                
-            } catch (error) {
-                console.error('Error loading web series detail:', error);
-                alert('Failed to load web series details');
-            }
-        }
-
-        function updateWebSeriesDetailUI(series) {
-            document.getElementById('webseries-detail-title').textContent = series.title;
-            document.getElementById('webseries-detail-backdrop-img').src = series.backdrop || series.poster || '';
-            document.getElementById('webseries-detail-poster-img').src = series.poster || '';
-            document.getElementById('webseries-detail-year').textContent = series.releaseDate || 'N/A';
-            document.getElementById('webseries-detail-rating').textContent = series.rating || 'N/A';
-            document.getElementById('webseries-detail-language').textContent = series.language || 'N/A';
-            
-            const isAdult = series.isAdult || (series.category && series.category.includes('18+'));
-            const isPremiumOnly = series.accessType === 'PREMIUM';
-            
-            const adultBadge = document.getElementById('webseries-detail-adult-badge');
-            if (isAdult) {
-                adultBadge.style.display = 'inline';
-            } else {
-                adultBadge.style.display = 'none';
-            }
-            
-            const playButton = document.querySelector('#webseries-detail-page .detail-actions .btn');
-            if (isAdult && !isPremiumUser) {
-                playButton.innerHTML = '<i class="fas fa-lock"></i> Upgrade to Watch';
-                playButton.onclick = function() {
-                    alert('This content is for 18+ viewers only. Please upgrade to a premium plan.');
-                    navigateTo('subscription-page');
-                };
-            } else if (isPremiumOnly && !isPremiumUser) {
-                playButton.innerHTML = '<i class="fas fa-crown"></i> Premium Only';
-                playButton.onclick = function() {
-                    alert('This content requires a premium subscription. Please upgrade your plan.');
-                    navigateTo('subscription-page');
-                };
-            } else {
-                playButton.innerHTML = '<i class="fas fa-play"></i> Play First Episode';
-                playButton.onclick = playWebSeriesFirstEpisode;
-            }
-            
-            // Update views count
-            const viewsCount = series.views || 0;
-            document.getElementById('webseries-detail-views').textContent = viewsCount;
-            
-            // Update episodes count
-            const episodesCount = series.episodes ? series.episodes.length : 0;
-            document.getElementById('webseries-detail-episodes').textContent = episodesCount;
-            
-            // Update description
-            const mainDescSection = document.getElementById('webseries-main-description-section');
-            const mainDescContent = document.getElementById('webseries-main-description-content');
-            
-            if (series.description && series.description.trim() !== '') {
-                mainDescSection.style.display = 'block';
-                mainDescContent.innerHTML = `<p>${series.description}</p>`;
-            } else {
-                mainDescSection.style.display = 'none';
-            }
-            
-            // Load episodes
-            const episodesSection = document.getElementById('webseries-episodes-section');
-            const episodesContainer = document.getElementById('webseries-episodes-container');
-            
-            if (series.episodes && series.episodes.length > 0) {
-                episodesSection.style.display = 'block';
-                
-                let episodesHTML = '';
-                series.episodes.forEach((episode, index) => {
-                    episodesHTML += `
-                        <div class="episode-item" onclick="playWebSeriesEpisode(${index})">
-                            <div class="episode-info">
-                                <div class="episode-number">Episode ${episode.episodeNo || index + 1}</div>
-                                <div class="episode-title">${episode.title || `Episode ${index + 1}`}</div>
-                            </div>
-                            <button class="episode-play-btn">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    `;
-                });
-                
-                episodesContainer.innerHTML = episodesHTML;
-            } else {
-                episodesSection.style.display = 'none';
-                episodesContainer.innerHTML = '<div class="no-action-links"><i class="fas fa-exclamation-circle"></i><p>No episodes available</p></div>';
-            }
-            
-            // Check watchlist status
-            if (currentUser) {
-                const watchlistDoc = await db.collection('users').doc(currentUser.uid)
-                    .collection('watchlist').doc(series.id).get();
-                const watchlistBtn = document.getElementById('webseries-watchlist-btn');
-                if (watchlistBtn) {
-                    if (watchlistDoc.exists) {
-                        watchlistBtn.innerHTML = '<i class="fas fa-bookmark"></i> In Watchlist';
-                    } else {
-                        watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i> Add to Watchlist';
-                    }
-                }
-            }
-        }
-
-        function playWebSeriesFirstEpisode() {
-            if (!currentWebSeries || !currentWebSeries.episodes || currentWebSeries.episodes.length === 0) {
-                alert('No episodes available');
-                return;
-            }
-            
-            playWebSeriesEpisode(0);
-        }
-
-        function playWebSeriesEpisode(episodeIndex) {
-            if (!currentWebSeries || !currentWebSeries.episodes || currentWebSeries.episodes.length <= episodeIndex) {
-                alert('Episode not available');
-                return;
-            }
-            
-            const episode = currentWebSeries.episodes[episodeIndex];
-            const streamUrl = episode.streamUrl;
-            
-            if (!streamUrl) {
-                alert('Stream URL not available for this episode');
-                return;
-            }
-            
-            const isAdult = currentWebSeries.isAdult || currentWebSeries.category.includes('18+');
-            if (isAdult && window.ageVerificationEnabled && !isPremiumUser) {
-                if (!confirm('This content is restricted to viewers 18 years or older. Are you 18 or older?')) {
-                    return;
-                }
-            }
-            
-            const isPremiumOnly = currentWebSeries.accessType === 'PREMIUM';
-            if (isPremiumOnly && !isPremiumUser) {
-                alert('This content requires a premium subscription. Please upgrade your plan.');
-                navigateTo('subscription-page');
-                return;
-            }
-            
-            // Increment views
-            if (currentUser) {
-                const seriesRef = db.collection('webseries').doc(currentWebSeries.id);
-                seriesRef.update({
-                    views: firebase.firestore.FieldValue.increment(1)
-                }).catch(error => console.error('Error incrementing views:', error));
-            }
-            
-            let shouldShowAd = false;
-            
-            if (!isPremiumUser && adsSettings.enabled && adsSettings.adUrl && adsSettings.showIn.series) {
-                shouldShowAd = true;
-            }
-            
-            if (shouldShowAd) {
-                showAdBeforePlay(streamUrl);
-            } else {
-                playStream(streamUrl);
-            }
-        }
-
-        async function toggleWebSeriesWatchlist() {
-            if (!currentUser || !currentWebSeries) {
-                alert('Please login to use watchlist');
-                return;
-            }
-            
-            const watchlistRef = db.collection('users').doc(currentUser.uid)
-                .collection('watchlist').doc(currentWebSeries.id);
-            const watchlistDoc = await watchlistRef.get();
-            const watchlistBtn = document.getElementById('webseries-watchlist-btn');
-            
-            if (watchlistDoc.exists) {
-                await watchlistRef.delete();
-                if (watchlistBtn) {
-                    watchlistBtn.innerHTML = '<i class="far fa-bookmark"></i> Add to Watchlist';
-                }
-                alert('Removed from watchlist');
-            } else {
-                await watchlistRef.set({
-                    contentId: currentWebSeries.id,
-                    title: currentWebSeries.title,
-                    poster: currentWebSeries.poster,
-                    type: 'webseries',
-                    addedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                if (watchlistBtn) {
-                    watchlistBtn.innerHTML = '<i class="fas fa-bookmark"></i> In Watchlist';
-                }
-                alert('Added to watchlist');
-            }
-        }
-
-        function handleWebSeriesSearch(event) {
-            const searchTerm = event.target.value.toLowerCase();
-            filterWebSeriesContent(searchTerm);
-        }
-
-        async function filterWebSeriesContent(searchTerm) {
-            try {
-                const snapshot = await db.collection('webseries')
-                    .orderBy('order', 'asc')
-                    .get();
-                
-                if (snapshot.empty) {
-                    document.getElementById('webseries-success-state').innerHTML = `
-                        <div class="state-container">
-                            <div class="state-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <div class="state-title">No Web Series Found</div>
-                            <div class="state-message">No web series found for "${searchTerm}"</div>
-                        </div>
-                    `;
-                    document.getElementById('webseries-loading-state').style.display = 'none';
-                    document.getElementById('webseries-success-state').style.display = 'block';
-                    return;
-                }
-                
-                const filteredSeries = [];
-                snapshot.forEach(doc => {
-                    const series = { id: doc.id, ...doc.data() };
-                    if (series.title.toLowerCase().includes(searchTerm) || 
-                        (series.description && series.description.toLowerCase().includes(searchTerm))) {
-                        filteredSeries.push(series);
-                    }
-                });
-                
-                if (filteredSeries.length === 0) {
-                    document.getElementById('webseries-success-state').innerHTML = `
-                        <div class="state-container">
-                            <div class="state-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <div class="state-title">No Results Found</div>
-                            <div class="state-message">No web series found for "${searchTerm}"</div>
-                        </div>
-                    `;
-                    document.getElementById('webseries-loading-state').style.display = 'none';
-                    document.getElementById('webseries-success-state').style.display = 'block';
-                    return;
-                }
-                
-                let html = '<div class="content-grid">';
-                filteredSeries.forEach(series => {
-                    const isAdult = series.isAdult || (series.category && series.category.includes('18+'));
-                    const isPremiumOnly = series.accessType === 'PREMIUM';
-                    
-                    html += `
-                        <div class="content-card" onclick="showWebSeriesDetail('${series.id}')">
-                            <img src="${series.poster || 'https://via.placeholder.com/150x225'}" alt="${series.title}">
-                            ${series.language ? `<div class="content-language-badge">${series.language}</div>` : ''}
-                            <div class="content-title">${series.title}</div>
-                            ${isAdult ? '<div style="position:absolute; top:6px; left:6px; background:red; color:white; padding:2px 5px; border-radius:3px; font-size:10px;">18+</div>' : ''}
-                            ${isPremiumOnly && !isPremiumUser ? '<div style="position:absolute; top:6px; left:6px; background:var(--primary-color); color:white; padding:2px 5px; border-radius:3px; font-size:10px;"><i class="fas fa-crown"></i></div>' : ''}
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-                
-                document.getElementById('webseries-loading-state').style.display = 'none';
-                document.getElementById('webseries-success-state').style.display = 'block';
-                document.getElementById('webseries-success-state').innerHTML = html;
-                
-            } catch (error) {
-                console.error('Error filtering web series:', error);
-                document.getElementById('webseries-loading-state').style.display = 'none';
-                document.getElementById('webseries-error-state').style.display = 'block';
-            }
-        }
-
         // === NEW: SEARCH SYSTEM FUNCTIONS ===
         
         // 1. Open Search Screen
@@ -5184,13 +4625,7 @@
             
             // Then show the detail
             setTimeout(() => {
-                if (type === 'movie') {
-                    showDetail(contentId, type);
-                } else if (type === 'series') {
-                    showWebSeriesDetail(contentId);
-                } else {
-                    showDetail(contentId, type);
-                }
+                showDetail(contentId, type);
             }, 300);
         }
         
@@ -5543,11 +4978,7 @@
                 slide.addEventListener('click', function() {
                     const contentId = this.dataset.contentId;
                     const contentType = this.dataset.contentType;
-                    if (contentType === 'movie') {
-                        showDetail(contentId, contentType);
-                    } else if (contentType === 'series') {
-                        showWebSeriesDetail(contentId);
-                    }
+                    showDetail(contentId, contentType);
                 });
                 
                 slider.appendChild(slide);
@@ -5684,10 +5115,9 @@
             currentContent = content;
             navigateTo('detail-page');
             
-            // Hide floating buttons on detail page
+            // ✅ FIXED: Hide complaint fab on detail page
             document.getElementById('complaint-fab').style.display = 'none';
             document.getElementById('telegram-fab').style.display = 'none';
-            document.getElementById('webseries-fab').style.display = 'none';
             
             updateDetailUI(content);
             setupContentListener(contentId, type);
@@ -6093,7 +5523,7 @@
                 watchlistSnapshot.forEach(doc => {
                     const item = doc.data();
                     html += `
-                        <div class="content-card" onclick="${item.type === 'webseries' ? `showWebSeriesDetail('${item.contentId}')` : `showDetail('${item.contentId}', '${item.type}')`}">
+                        <div class="content-card" onclick="showDetail('${item.contentId}', '${item.type}')">
                             <img src="${item.poster || 'https://via.placeholder.com/150x225'}" alt="${item.title}">
                             <div class="content-title">${item.title}</div>
                         </div>
@@ -6391,12 +5821,11 @@
             if (topSlot) topSlot.innerHTML = "";
             if (bottomSlot) bottomSlot.innerHTML = "";
             
-            // Show floating buttons again when closing video player
+            // ✅ FIXED: Show complaint fab again when closing video player
             setTimeout(() => {
                 const currentPage = document.querySelector('.page.active');
-                if (currentPage && currentPage.id !== 'detail-page' && currentPage.id !== 'webseries-detail-page') {
+                if (currentPage && currentPage.id !== 'detail-page') {
                     document.getElementById('complaint-fab').style.display = 'flex';
-                    document.getElementById('webseries-fab').style.display = 'flex';
                     if (telegramSettings.enabled) {
                         document.getElementById('telegram-fab').style.display = 'flex';
                     }
@@ -7028,9 +6457,8 @@
             
             updateProfilePlanDisplay();
             
-            // Show floating buttons on profile page
+            // ✅ FIXED: Show complaint fab on profile page
             document.getElementById('complaint-fab').style.display = 'flex';
-            document.getElementById('webseries-fab').style.display = 'flex';
             if (telegramSettings.enabled) {
                 document.getElementById('telegram-fab').style.display = 'flex';
             }
@@ -7142,7 +6570,7 @@
                 
                 series.slice(0, 6).forEach(item => {
                     html += `
-                        <div class="content-card" onclick="showWebSeriesDetail('${item.id}'); closeModal('search-results-modal');">
+                        <div class="content-card" onclick="showDetail('${item.id}', 'series'); closeModal('search-results-modal');">
                             <img src="${item.poster || 'https://via.placeholder.com/150x225'}" alt="${item.title}">
                             <div class="content-title">${item.title}</div>
                         </div>
@@ -7175,75 +6603,6 @@
         function handleMoviesSearch(event) {
             const searchTerm = event.target.value.toLowerCase();
             filterMoviesContent(searchTerm);
-        }
-
-        function filterMoviesContent(searchTerm) {
-            const container = document.getElementById('movies-categories-container');
-            
-            if (!searchTerm) {
-                loadMoviesCategories();
-                return;
-            }
-            
-            const filteredMovies = allMovies.filter(movie => 
-                movie.title.toLowerCase().includes(searchTerm) || 
-                (movie.description && movie.description.toLowerCase().includes(searchTerm))
-            );
-            
-            filteredMovies.sort((a, b) => {
-                const orderA = Number(a.order) || 999;
-                const orderB = Number(b.order) || 999;
-                return orderA - orderB;
-            });
-            
-            if (filteredMovies.length === 0) {
-                document.getElementById('movies-success-state').innerHTML = `
-                    <div class="state-container">
-                        <div class="state-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="state-title">No Movies Found</div>
-                        <div class="state-message">No movies found for "${searchTerm}"</div>
-                    </div>
-                `;
-                document.getElementById('movies-loading-state').style.display = 'none';
-                document.getElementById('movies-success-state').style.display = 'block';
-                return;
-            }
-            
-            const categories = {};
-            filteredMovies.forEach(movie => {
-                if (movie.category) {
-                    if (!categories[movie.category]) {
-                        categories[movie.category] = [];
-                    }
-                    categories[movie.category].push(movie);
-                }
-            });
-            
-            let html = '<div class="movies-category-grid">';
-            Object.keys(categories).forEach(category => {
-                const movies = categories[category];
-                movies.sort((a, b) => {
-                    const orderA = Number(a.order) || 999;
-                    const orderB = Number(b.order) || 999;
-                    return orderA - orderB;
-                });
-                
-                html += `
-                    <div class="category-card" onclick="showMoviesByCategory('${category}')">
-                        <i class="fas fa-film"></i>
-                        <span>${category}</span>
-                        <small style="margin-top: 5px; color: var(--secondary-text-color);">${movies.length} movies</small>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            
-            document.getElementById('movies-loading-state').style.display = 'none';
-            document.getElementById('movies-success-state').innerHTML = html;
-            document.getElementById('movies-success-state').style.display = 'block';
         }
 
         // === POLL FUNCTIONS ===
@@ -7321,14 +6680,12 @@
                 return;
             }
             
-            if (currentPage && (currentPage.id === 'detail-page' || currentPage.id === 'webseries-detail-page') && 
-                pageId !== 'detail-page' && pageId !== 'webseries-detail-page') {
+            if (currentPage && currentPage.id === 'detail-page' && pageId !== 'detail-page') {
                 removeCurrentContentListener();
                 
-                // Show floating buttons when leaving detail pages
-                if (pageId !== 'detail-page' && pageId !== 'webseries-detail-page') {
+                // ✅ FIXED: Show complaint fab when leaving detail page
+                if (pageId !== 'detail-page') {
                     document.getElementById('complaint-fab').style.display = 'flex';
-                    document.getElementById('webseries-fab').style.display = 'flex';
                     if (telegramSettings.enabled) {
                         document.getElementById('telegram-fab').style.display = 'flex';
                     }
@@ -7358,14 +6715,12 @@
                     currentPage.classList.remove('exit');
                     targetPage.classList.add('active');
                     
-                    // Hide floating buttons on detail pages, show on others
-                    if (pageId === 'detail-page' || pageId === 'webseries-detail-page') {
+                    // ✅ FIXED: Hide complaint fab on detail page, show on others
+                    if (pageId === 'detail-page') {
                         document.getElementById('complaint-fab').style.display = 'none';
                         document.getElementById('telegram-fab').style.display = 'none';
-                        document.getElementById('webseries-fab').style.display = 'none';
                     } else {
                         document.getElementById('complaint-fab').style.display = 'flex';
-                        document.getElementById('webseries-fab').style.display = 'flex';
                         if (telegramSettings.enabled) {
                             document.getElementById('telegram-fab').style.display = 'flex';
                         }
@@ -7383,9 +6738,6 @@
                             break;
                         case 'movies-page':
                             loadMoviesCategories();
-                            break;
-                        case 'webseries-page':
-                            loadWebSeries();
                             break;
                         case 'watchlist-page':
                             loadWatchlist();
@@ -7418,14 +6770,12 @@
             } else {
                 targetPage.classList.add('active');
                 
-                // Hide floating buttons on detail pages
-                if (pageId === 'detail-page' || pageId === 'webseries-detail-page') {
+                // ✅ FIXED: Hide complaint fab on detail page
+                if (pageId === 'detail-page') {
                     document.getElementById('complaint-fab').style.display = 'none';
                     document.getElementById('telegram-fab').style.display = 'none';
-                    document.getElementById('webseries-fab').style.display = 'none';
                 } else {
                     document.getElementById('complaint-fab').style.display = 'flex';
-                    document.getElementById('webseries-fab').style.display = 'flex';
                     if (telegramSettings.enabled) {
                         document.getElementById('telegram-fab').style.display = 'flex';
                     }
@@ -7592,7 +6942,6 @@
             document.getElementById('disclaimer-overlay').style.display = 'flex';
             document.getElementById('bottom-nav').style.display = 'flex';
             document.getElementById('complaint-fab').style.display = 'flex';
-            document.getElementById('webseries-fab').style.display = 'flex';
             
             // Show Telegram button if enabled
             if (telegramSettings.enabled) {
@@ -7624,6 +6973,76 @@
             document.getElementById('loading-screen').style.display = 'none';
             
             navigateTo('home-page');
+        }
+
+        // Search function for movies page
+        function filterMoviesContent(searchTerm) {
+            const container = document.getElementById('movies-categories-container');
+            
+            if (!searchTerm) {
+                loadMoviesCategories();
+                return;
+            }
+            
+            const filteredMovies = allMovies.filter(movie => 
+                movie.title.toLowerCase().includes(searchTerm) || 
+                (movie.description && movie.description.toLowerCase().includes(searchTerm))
+            );
+            
+            filteredMovies.sort((a, b) => {
+                const orderA = Number(a.order) || 999;
+                const orderB = Number(b.order) || 999;
+                return orderA - orderB;
+            });
+            
+            if (filteredMovies.length === 0) {
+                document.getElementById('movies-success-state').innerHTML = `
+                    <div class="state-container">
+                        <div class="state-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="state-title">No Movies Found</div>
+                        <div class="state-message">No movies found for "${searchTerm}"</div>
+                    </div>
+                `;
+                document.getElementById('movies-loading-state').style.display = 'none';
+                document.getElementById('movies-success-state').style.display = 'block';
+                return;
+            }
+            
+            const categories = {};
+            filteredMovies.forEach(movie => {
+                if (movie.category) {
+                    if (!categories[movie.category]) {
+                        categories[movie.category] = [];
+                    }
+                    categories[movie.category].push(movie);
+                }
+            });
+            
+            let html = '<div class="movies-category-grid">';
+            Object.keys(categories).forEach(category => {
+                const movies = categories[category];
+                movies.sort((a, b) => {
+                    const orderA = Number(a.order) || 999;
+                    const orderB = Number(b.order) || 999;
+                    return orderA - orderB;
+                });
+                
+                html += `
+                    <div class="category-card" onclick="showMoviesByCategory('${category}')">
+                        <i class="fas fa-film"></i>
+                        <span>${category}</span>
+                        <small style="margin-top: 5px; color: var(--secondary-text-color);">${movies.length} movies</small>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            document.getElementById('movies-loading-state').style.display = 'none';
+            document.getElementById('movies-success-state').innerHTML = html;
+            document.getElementById('movies-success-state').style.display = 'block';
         }
 
         // Shortcut functions for UI
